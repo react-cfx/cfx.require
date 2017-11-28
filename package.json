@@ -1,0 +1,23 @@
+{
+  "name": "cfx.require",
+  "version": "0.0.0",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "rollup -c",
+    "rebuild": "npm run clean; npm run build",
+    "dev": "rollup -c -w",
+    "postinstall": "npm run build"
+  },
+  "devDependencies": {
+    "coffee-require": "^0.0.4",
+    "ddeyes": "^0.0.4",
+    "shelljs": "^0.7.8"
+  },
+  "dependencies": {
+    "cfx.rollup-plugin-coffee2": "^0.1.0",
+    "require-from-string": "^2.0.1",
+    "rollup": "^0.52.0",
+    "rollup-plugin-cleanup": "^2.0.0"
+  }
+}
