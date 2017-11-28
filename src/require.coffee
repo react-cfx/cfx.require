@@ -21,7 +21,9 @@ import path from 'path'
           add index.ext
         false
           if file ext isnt conf ext
-            return ''
+            if file ext is '.js'
+            then filePath
+            else return ''
           else
             return filePath
 ###
@@ -49,11 +51,10 @@ getFileObj = (filePath, fileExt) ->
       # dd "#{filePath}/index#{fileExt}"
       return getFileObj "#{filePath}/index#{fileExt}", fileExt
     else
-      fileObj = path.parse filePath
-      if fileObj.ext isnt fileExt
-        return null
-      else
-        return filePath
+      return filePath
+      # fileObj = path.parse filePath
+      # if fileObj.ext isnt fileExt
+      #   return filePath
 
 getFilePath = (filePath, fileExts) ->
 
