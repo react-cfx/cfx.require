@@ -52,7 +52,7 @@ export default (plugins) ->
 
       baseCode = getFileCode id
 
-      r.code = compiler baseCode, id
+      r.code = await compiler baseCode, id
 
       r
 
@@ -73,7 +73,7 @@ export default (plugins) ->
     }) ->
       exts.map (ext) ->
         require.extensions[ext] = (module, filename) ->
-          answer = compiler(
+          answer = await compiler(
             getFileCode getFilePath filename, exts
             filename
           )
