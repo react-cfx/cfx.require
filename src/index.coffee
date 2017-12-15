@@ -1,4 +1,4 @@
-# import dd from 'ddeyes'
+import dd from 'ddeyes'
 import path from 'path'
 import {
   getFilePath
@@ -73,9 +73,9 @@ export default (plugins) ->
     }) ->
       exts.map (ext) ->
         require.extensions[ext] = (module, filename) ->
-          answer = compiler getFileCode (
-            getFilePath filename
-            , exts
+          answer = compiler(
+            getFileCode getFilePath filename, exts
+            filename
           )
           module._compile answer, filename
 
