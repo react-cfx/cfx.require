@@ -40,7 +40,7 @@ export default (plugins) ->
       requirePath
     )
 
-    { code } = plugins.reduce (r, {
+    reducer = (r, {
       name
       exts
       compiler
@@ -56,9 +56,8 @@ export default (plugins) ->
 
       r
 
-    , {
-      code: ''
-    }
+    { code } = await plugins.reduce reducer
+    , code: ''
 
     requireFromString code
 
@@ -120,3 +119,5 @@ export default (plugins) ->
       Module._extensions[extension] @, id
 
       @loaded = true
+
+    return
