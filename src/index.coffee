@@ -6,6 +6,8 @@ import {
 } from './require'
 import requireFromString from 'require-from-string'
 
+export gdf = (obj) -> obj.default
+
 export default (plugins) ->
 
   ### plugins like
@@ -27,8 +29,6 @@ export default (plugins) ->
   ]
 
   ###
-
-  gdf: (obj) -> obj.default
 
   require: (
     requirePath 
@@ -52,11 +52,11 @@ export default (plugins) ->
 
       baseCode = getFileCode id
 
-      r.code = await compiler baseCode, id
+      r.code = compiler baseCode, id
 
       r
 
-    { code } = await plugins.reduce reducer
+    { code } = plugins.reduce reducer
     , code: ''
 
     requireFromString code
@@ -72,7 +72,7 @@ export default (plugins) ->
     }) ->
       exts.map (ext) ->
         require.extensions[ext] = (module, filename) ->
-          answer = await compiler(
+          answer = compiler(
             getFileCode getFilePath filename, exts
             filename
           )
