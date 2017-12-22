@@ -59,7 +59,44 @@ export default (plugins) ->
     { code } = plugins.reduce reducer
     , code: ''
 
-    requireFromString code
+    try
+      requireFromString code
+    catch e
+      console.error e
+
+  requireAsync: (
+    requirePath 
+    parentPath = module.parent.filename
+  ) ->
+
+    requireFile = path.join(
+      path.dirname parentPath
+      requirePath
+    )
+
+    reducer = (r, {
+      name
+      exts
+      compiler
+    }) ->
+
+      return unless r.code is ''
+
+      id = getFilePath requireFile, exts
+
+      baseCode = getFileCode id
+
+      r.code = await compiler baseCode, id
+
+      r
+
+    { code } = await plugins.reduce reducer
+    , code: ''
+
+    try
+      requireFromString code
+    catch e
+      console.error e
 
   register: ->
 
